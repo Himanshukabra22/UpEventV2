@@ -1,0 +1,6 @@
+.slideshow-main-div{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: fit-content;
+}
