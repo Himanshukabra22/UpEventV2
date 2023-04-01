@@ -2,21 +2,21 @@ const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    reqiured: true,
+    required: true,
   },
   email: {
     type: String,
-    reqiured: true,
     unique: true,
+    required: true
   },
   username: {
     type: String,
-    reqiured: true,
+    required: true,
     unique: true,
   },
   password: {
     type: String,
-    reqiured: true,
+    required: true,
   }
 },{
   collection: 'tempModel'
