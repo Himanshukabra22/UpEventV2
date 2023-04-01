@@ -25,10 +25,11 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const {name, username, plainTextPassword, email} = req.body;
-    // password = await bcrypt.hash(plainTextPassword,10);
-    // console.log(password)
-    const user = await tempModel.create({name, username, plainTextPassword, email});
+    const {name, username, password : plainTextPassword, email} = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const val = String(plainTextPassword);
+    const password = bcrypt.hashSync(val, salt);
+    const user = await tempModel.create({name, username, password, email});
     if (!user) {
       return res.status(400).send({ status: "not ok", msg: "user not created" });
     }
