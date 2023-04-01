@@ -1,15 +1,15 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const tempModel = require("../models/temp");
+const userModel = require("../models/user.model");
 
 const Login = async (req, res) => {
   try {
     const {username, password}=req.body;
-    const user = await tempModel.findOne({username});
+    const user = await userModel.findOne({username});
     if (!user) {
       return res.status(400).send({ status: "not ok", msg: "user not found" });
     }
-    const match = await bcrypt.compare(password,user.password);
+    const match = await bcrypt.compareSync(password,user.password);
     if(match){
         const { _id} = user;
         const token = jwt.sign({ _id, username }, process.env.SECRET_KEY);
@@ -25,10 +25,10 @@ const Login = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const {name, username, plainTextPassword, email} = req.body;
-    // password = await bcrypt.hash(plainTextPassword,10);
-    // console.log(password)
-    const user = await tempModel.create({name, username, plainTextPassword, email});
+    const {name, username, password : plainTextPassword, email} = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const password = bcrypt.hashSync(String(plainTextPassword), salt);
+    const user = await userModel.create({name, username, password, email});
     if (!user) {
       return res.status(400).send({ status: "not ok", msg: "user not created" });
     }
