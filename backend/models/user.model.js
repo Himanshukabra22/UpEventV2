@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   }
 },{
-  collection: 'tempModel'
+  collection: 'userModel'
 });
 
-module.exports = mongoose.model("tempModel", UserSchema);
+module.exports = mongoose.model("userModel", UserSchema);

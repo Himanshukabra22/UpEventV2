@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
 const { Register, Login } = require("../controllers/auth");
 const {middlewareCheck} = require("../controllers/middlewareCheck");
-const {loginCheck} = require('../middleware/loggedinCheck')
+const {loggedinCheck} = require('../middleware/loggedinCheck')
 
 router.route("/register").post(Register);
 router.route("/login").post(Login);
@@ -11,6 +12,6 @@ router.route("/login").post(Login);
 //The middleware will attach username and email if the user is logged in due to below line.
 // return res.status(200).send({status: "ok",body:{username,email}});
 
-router.route('/middlewareCheck').post(loginCheck,middlewareCheck);
+router.route('/middlewareCheck').post(loggedinCheck,middlewareCheck);
 
 module.exports = router;
