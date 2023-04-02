@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const authRoutes = require("./routes/auth");
-const eventrequestRoutes = require("./routes/eventrequest");
+const authRoutes = require("./routes/userauth");
+const adminRoutes = require("./routes/adminauth");
+const eventrequestRoutes = require("./routes/eventRequest");
+const putUrlRoutes = require("./routes/putUrl");
 
 // const userDataRoutes = require("./routes/user.data");
 // const tradeRoutes = require("./routes/trade");
@@ -18,7 +20,9 @@ app.use(express.json());
 
 
 app.use(authRoutes);
+app.use(adminRoutes);
 app.use(eventrequestRoutes);
+app.use(putUrlRoutes);
 
 // app.use("/api/v1", userDataRoutes);
 // app.use("/api/v1", tradeRoutes);
