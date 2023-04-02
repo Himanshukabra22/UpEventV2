@@ -1,4 +1,4 @@
-const userModel = require('../models/admin.model')
+const adminModel = require('../models/admin.model')
 const jwt = require('jsonwebtoken')
 
 const adminloggedinCheck = async (req, res,next) => {
@@ -7,13 +7,13 @@ const adminloggedinCheck = async (req, res,next) => {
     {
       const token = req.headers.authorization;
       const admin = jwt.verify(token, process.env.JWT_ADMIN_SECRET_KEY);
-    //   console.log(user);
+      console.log(admin);
       const {_id} = admin;
       const adminData = await adminModel.findOne({_id});
       if (!adminData) {
         res.status(400).send({ status: "not ok", msg: "user not found" });
       }
-      const {username,email} = userData;
+      const {username,email} = adminData;
       req.user = {username,email,type:"admin"};
       console.log(req.user);
     }
