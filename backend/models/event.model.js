@@ -72,8 +72,16 @@ const eventSchema = new mongoose.Schema(
         //     unique: true,
         //     required: true
         // }
-      },
+      }
     },
+    adminBody : {
+      display : {
+        type : Boolean,
+      },
+      eventlink : {
+          type : String
+      }
+    }
   },
   {
     collection: "eventData",
